@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>JAVASCRIPT</title>
+  </head>
+  <body>
+    <h2>BASICS OF JS</h2>
+    <p>
+      1.What is JAVASCRIPT? JavaScript is a scripting or programming language
+      that allows you to implement complex features on web pages, every time a
+      web page does more than just sit there and display static information for
+      you to look at — displaying timely content updates, interactive maps,
+      animated 2D/3D graphics, scrolling video jukeboxes, etc. can be done using
+      javascript. <u>ROLE:</u> JavaScript is a programming language used to
+      create dynamic content for websites. It achieves this by adding new HTML
+      elements while modifying existing ones. Many coders enhance web
+      development skills using JavaScript to create user-friendly and
+      interactive websites.
+    </p>
+  </body>
+  <script>
+    var userAge = 18;
+    var userName = "Sandhya";
+    console.log("2.To display name and age:");
+    console.log("My Name Is " + userName + " and my age is " + userAge);
+
+    /*3.Hello World!!*/
+
+    //Mathematical Operations
+    var num1 = 10;
+    var num2 = 5;
+    console.log("4.OPERATIONS:");
+    console.log("Addition:" + (num1 + num2));
+    console.log("Subtraction:" + (num1 - num2));
+    console.log("Multiplication:" + num1 * num2);
+    console.log("Division:" + num1 / num2);
+
+    //DATATYPES
+    console.log("5.DATAYPES:");
+    // 1) STRING - A string stores a series of characters.A string can be any text inside double or single quotes.there are various string methods like min(),max(),length etc..
+    console.log("STRINGS");
+    let name = "Sandhya";
+    console.log(name);
+    // 2) NUMBER - Used To represent integer,float.It has methods like Number.parseInt().
+    console.log("NUMBER");
+    const regno = 23;
+    console.log(regno);
+    // 3) BOOLEAN - Check if a condition is TRUE OR FALSE.
+    console.log("BOOLEAN");
+    let isbool = true;
+    console.log(isbool);
+    // 4) ARRAY - To represent collection of values.
+    console.log("ARRAYS");
+    let fruits = ["Apple", "Banana", "Guava"];
+    console.log(fruits[0]);
+    console.log(fruits);
+
+    //6.FUNCTIONS
+    function greetUser(name) {
+      return "Hi " + name + " Have A Great Day!!";
+    }
+    let n = prompt("Enter Your Name:");
+    console.log(greetUser(n));
+
+    //7. if - else
+    let temperature = 28;
+    if (temperature < 30) {
+      console.log("Temperature is less than 30");
+    } else {
+      console.log("Temperature is greater than 30");
+    }
+
+    for (let i = 1; i < 6; i++) {
+      console.log(i);
+    }
+
+    //STRICT EQUALITY
+    console.log(
+      "=== It performs comparison but it does not do type conversions."
+    );
+    //LOOSE EQUALITY
+    console.log("== It performs comparison but it does type conversions.");
+  </script>
+</html>
