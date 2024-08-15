@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Form</title>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
+      import {
+        getDatabase,
+        ref,
+        set,
+      } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-database.js";
+
+      const firebaseConfig = {
+        apiKey: "AIzaSyAJqlpJE5MY9k6rmuKghI2cYRQbHw-bIWs",
+        authDomain: "js-forms-5cce4.firebaseapp.com",
+        databaseURL:
+          "https://js-forms-5cce4-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "js-forms-5cce4",
+        storageBucket: "js-forms-5cce4.appspot.com",
+        messagingSenderId: "341987916931",
+        appId: "1:341987916931:web:653b0cca3c330662c8efb6",
+      };
+
+      const app = initializeApp(firebaseConfig);
+      const db = getDatabase(app);
+
+      document.addEventListener("DOMContentLoaded", () => {
+        document
+          .getElementById("updateBtn")
+          .addEventListener("click", function (e) {
+            e.preventDefault();
+            const email = document.getElementById("email").value;
+            const newPassword = document.getElementById("newPassword").value;
+            const confirmPassword =
+              document.getElementById("confirmPassword").value;
+
+            if (
+              newPassword === "" ||
+              email === "" ||
+              newPassword !== confirmPassword
+            ) {
+              alert("Password must be the same");
+              return;
+            }
+
+            const sanitizedEmail = email.replace(/\./g, ",");
+
+            set(ref(db, "users/" + sanitizedEmail), {
+              email: email,
+              newPassword: newPassword,
+            })
+              .then(() => {
+                alert("Success: Password has been updated.");
+              })
+              .catch((error) => {
+                alert("Failed: " + error.message);
+              });
+          });
+      });
+    </script>
+    <style>
+      body {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+      button {
+        margin-top: 20px;
+      }
+      form {
+        background: linear-gradient(to bottom, rgb(255, 196, 205), #dfc5fe);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border-radius: 8px;
+        width: 350px;
+        height: 350px;
+        padding: 20px;
+      }
+
+      h2 {
+        margin-bottom: 20px;
+        color: white;
+        text-align: center;
+      }
+
+      label {
+        margin-top: 10px;
+        margin-bottom: 2px;
+        color: rgb(254, 247, 247);
+        align-self: flex-start;
+        font-size: x-small;
+        width: 100%;
+      }
+
+      input {
+        margin-bottom: 5px;
+        padding: 8px;
+        width: 100%;
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+
+      input:focus {
+        border-color: rgb(89, 167, 255);
+        outline: none;
+        box-shadow: 0 0 5px rgb(89, 167, 255);
+      }
+
+      .error {
+        color: red;
+        font-size: small;
+        margin-bottom: 10px;
+        text-align: left;
+        width: 100%;
+      }
+
+      .required {
+        color: red;
+        font-size: small;
+        margin-bottom: 10px;
+        text-align: left;
+        width: 100%;
+      }
+    </style>
+  </head>
+  <body>
+    <form id="updatePasswordForm">
+      <h2>Update Password</h2>
+      <label for="email"><b>Email</b></label>
+      <input
+        type="email"
+        id="email"
+        name="email"
+        placeholder="Enter a valid email"
+      />
+      <label for="newPassword"><b>NEW PASSWORD</b></label>
+      <input
+        type="password"
+        id="newPassword"
+        name="newPassword"
+        placeholder="Create New Password"
+      />
+      <span id="newPasswordRequired" class="required"></span>
+      <label for="confirmPassword"><b>CONFIRM PASSWORD</b></label>
+      <input
+        type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+        placeholder="Confirm Password"
+      />
+      <span id="passwordError" class="error"></span>
+      <button type="submit" id="updateBtn">Update</button>
+    </form>
+    <script>
+      function validatePasswords() {
+        const newPassword = document.getElementById("newPassword").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+        const passwordError = document.getElementById("passwordError");
+        const newPasswordRequired = document.getElementById(
+          "newPasswordRequired"
+        );
+
+        if (newPassword === "") {
+          newPasswordRequired.textContent = "*Required.";
+        } else {
+          newPasswordRequired.textContent = "";
+        }
+
+        if (confirmPassword === "") {
+          passwordError.textContent = "";
+          return;
+        }
+
+        if (newPassword !== confirmPassword) {
+          passwordError.textContent = "Passwords Must Be The Same";
+        } else {
+          passwordError.textContent = "";
+        }
+      }
+
+      document
+        .getElementById("updatePasswordForm")
+        .addEventListener("submit", function (event) {
+          validatePasswords();
+          const passwordError = document.getElementById("passwordError");
+          const newPasswordRequired = document.getElementById(
+            "newPasswordRequired"
+          );
+          if (passwordError.textContent || newPasswordRequired.textContent) {
+            event.preventDefault();
+          }
+        });
+
+      document
+        .getElementById("newPassword")
+        .addEventListener("blur", validatePasswords);
+      document
+        .getElementById("confirmPassword")
+        .addEventListener("blur", validatePasswords);
+    </script>
+  </body>
+</html>
