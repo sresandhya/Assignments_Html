@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+</html>
+  <head>
+    <title>Form</title>
+    <style>
+      body { 
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+        font-family: Arial, sans-serif;
+      }
+      button {
+        margin-top: 30px;
+      }
+
+      form {
+        background: linear-gradient(to bottom, rgb(255, 196, 205), #DFC5FE);
+        display: flex;
+        flex-direction: column;
+        align-items: center; 
+        border-radius: 8px;
+        width: 350px;
+        height: 300px;
+        padding:20px;
+      }
+
+      h2 {
+        margin-bottom: 50px; 
+        color: white;
+        text-align: center; 
+      }
+
+      label {
+        margin-bottom: 2px; 
+        color: rgb(254, 247, 247); 
+        align-self: flex-start;
+        font-size: x-small;
+        width: 100%;
+      }
+
+      input {
+        margin-bottom: 5px;
+        padding: 8px;
+        width: 100%; 
+        box-sizing: border-box;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+      }
+      input:focus {
+        border-color: rgb(89, 167, 255);
+        outline: none; 
+        box-shadow: 0 0 5px rgb(89, 167, 255); 
+      }
+
+      .error {
+        color: red;
+        font-size: small;
+        margin-bottom: 10px;
+        text-align: left; 
+        width: 100%;
+      }
+
+      .required {
+        color: red;
+        font-size: small;
+        margin-bottom: 10px;
+        text-align: left; 
+        width: 100%; 
+      }
+    </style>
+  </head>
+  <body>
+    <form id="updatePasswordForm">
+      <h2>Update Password</h2>
+      <label for="newPassword"><b>NEW PASSWORD</b></label>
+      <input
+        type="password"
+        id="newPassword"
+        name="newPassword"
+        placeholder="Create New Password"
+      />
+      <span id="newPasswordRequired" class="required"></span>
+      <label for="confirmPassword"><b>CONFIRM PASSWORD</b></label>
+      <input
+        type="password"
+        id="confirmPassword"
+        name="confirmPassword"
+        placeholder="Confirm Password"
+      />
+      <span id="passwordError" class="error"></span>
+      <button type="submit" id="updateBtn">Update</button>
+    </form>
+
+    <script>
+      function validatePasswords() {
+        const newPassword = document.getElementById("newPassword").value;
+        const confirmPassword =
+          document.getElementById("confirmPassword").value;
+        const passwordError = document.getElementById("passwordError");
+        const newPasswordRequired = document.getElementById(
+          "newPasswordRequired"
+        );
+        if (newPassword === "") {
+          newPasswordRequired.textContent = "*Required.";
+        } else {
+          newPasswordRequired.textContent = "";
+        }
+        if (confirmPassword === "") {
+          passwordError.textContent = "";
+          return;
+        }
+        if (newPassword !== confirmPassword) {
+          passwordError.textContent = "Passwords Must Be The Same";
+        } else {
+          passwordError.textContent = "";
+        }
+      }
+      document
+        .getElementById("updatePasswordForm")
+        .addEventListener("submit", function (event) {
+          validatePasswords();
+          const passwordError = document.getElementById("passwordError");
+          const newPasswordRequired = document.getElementById(
+            "newPasswordRequired"
+          );
+          if (passwordError.textContent || newPasswordRequired.textContent) {
+            event.preventDefault();
+          }
+        });
+      document
+        .getElementById("newPassword")
+        .addEventListener("blur", validatePasswords);
+      document
+        .getElementById("confirmPassword")
+        .addEventListener("blur", validatePasswords);
+    </script>
+  </body>
+</html>
